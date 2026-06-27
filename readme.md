@@ -218,7 +218,9 @@ curl -X POST http://localhost:8000/mcp/mcp-demo/mcp \
 ```bash
   export mcp-session-id=$(grep -i "mcp-session-id" /tmp/headers.txt | awk '{print $2}' | tr -d '\r')
 ```
-##### or
+##### OR
+
+##### Scripts:
 ```bash
 var sessionId = pm.response.headers.get("Mcp-Session-Id");
 if (sessionId) {

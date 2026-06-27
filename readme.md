@@ -1,6 +1,6 @@
 # MCP 统一调用网关
 
-基于 FastAPI 的 MCP Server 反向代理网关，将多个分散的 MCP Server 聚合为统一入口，提供鉴权、限流、调用统计和热更新能力。
+基于 FastAPI 的 MCP Server 反向代理网关的一个demo示例，将多个分散的 MCP Server 聚合为统一入口，提供鉴权、限流、调用统计和热更新能力。
 
 ## 架构概览
 

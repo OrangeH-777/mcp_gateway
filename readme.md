@@ -177,7 +177,7 @@ INFO | Application startup complete.
 | `/admin/health` | GET | 健康检查 | 需要 `token` + `tool_id` |
 | `/docs` | GET | Swagger 文档 | 无需鉴权 |
 
-### 调用示例
+### 调用示例（Postman可直接复制）
 
 #### 1. 列出可用工具（tools/list）
 
@@ -186,6 +186,8 @@ curl -X POST http://localhost:8000/mcp/mcp-demo/mcp \
   -H "token: your-token-id" \
   -H "tool_id: mcp-demo" \
   -H "Content-Type: application/json" \
+  -H "Accept: text/event-stream,application/json" \
+  -H "mcp-session-id: {{mcp-session-id}}" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
 ```
 
@@ -196,6 +198,8 @@ curl -X POST http://localhost:8000/mcp/mcp-demo/mcp \
   -H "token: your-token-id" \
   -H "tool_id: mcp-demo" \
   -H "Content-Type: application/json" \
+  -H "Accept: text/event-stream,application/json" \
+  -H "mcp-session-id: {{mcp-session-id}}" \
   -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"echo","arguments":{"message":"hello"}}}'
 ```
 
@@ -206,7 +210,21 @@ curl -X POST http://localhost:8000/mcp/mcp-demo/mcp \
   -H "token: your-token-id" \
   -H "tool_id: mcp-demo" \
   -H "Content-Type: application/json" \
+  -H "Accept: text/event-stream,application/json" \
   -d '{"jsonrpc":"2.0","id":3,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"test-client","version":"1.0.0"}}}'
+```
+
+##### 设置环境变量：
+```bash
+  export mcp-session-id=$(grep -i "mcp-session-id" /tmp/headers.txt | awk '{print $2}' | tr -d '\r')
+```
+##### or
+```bash
+var sessionId = pm.response.headers.get("Mcp-Session-Id");
+if (sessionId) {
+    pm.environment.set("mcp_session_id", sessionId);
+    console.log("Session ID saved: " + sessionId);
+}
 ```
 
 #### 4. Ping 探活
@@ -216,6 +234,8 @@ curl -X POST http://localhost:8000/mcp/mcp-demo/mcp \
   -H "token: your-token-id" \
   -H "tool_id: mcp-demo" \
   -H "Content-Type: application/json" \
+  -H "Accept: text/event-stream,application/json" \
+  -H "mcp-session-id: {{mcp-session-id}}" \
   -d '{"jsonrpc":"2.0","id":4,"method":"ping"}'
 ```
 
